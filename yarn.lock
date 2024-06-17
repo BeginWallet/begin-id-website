@@ -14,10 +14,10 @@
   dependencies:
     regenerator-runtime "^0.14.0"
 
-"@beginwallet/id@^0.2.0":
-  version "0.2.0"
-  resolved "https://npm.pkg.github.com/download/@beginwallet/id/0.2.0/bd98fdcc9fab66f2e38d1b2912fb909f24c7df03#bd98fdcc9fab66f2e38d1b2912fb909f24c7df03"
-  integrity sha512-fcxUHVl3FxgY8t8REnEylwfsKRLAgwPPM6LFnXkEBq/MNSCUz+PMaB3OWoQA360AcWCmMQsUAaHjgat46XgkIA==
+"@beginwallet/id@^0.3.0":
+  version "0.3.0"
+  resolved "https://npm.pkg.github.com/download/@beginwallet/id/0.3.0/128616e7d160c5d8561b0b5134924094485e896c#128616e7d160c5d8561b0b5134924094485e896c"
+  integrity sha512-JxoST+ZKqIvnVI7bebEQdC6wvu84NL8K1+1B7+j5EfNPt8sFI+sng/czpxsYVIRwZMRUMlmQ1fN1qwWIyo2jPw==
 
 "@eslint-community/eslint-utils@^4.2.0":
   version "4.4.0"
