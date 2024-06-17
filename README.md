@@ -1,4 +1,6 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## BeginID Profile and WebSite
+
+Welcome to BeginID Profile project, where it shows the users public profile.
 
 ## Getting Started
 
