@@ -49,6 +49,8 @@ jobs:
             exit 1
           fi
       - name: Setup Node
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         uses: actions/setup-node@v4
         with:
           node-version: "20"
