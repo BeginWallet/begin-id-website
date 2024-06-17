@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    basePath: "/begin-id-website",
+    basePath: "/",
     output: "export",
     reactStrictMode: true,
     images: {
