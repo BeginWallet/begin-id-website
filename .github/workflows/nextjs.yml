@@ -100,4 +100,4 @@ jobs:
           pass: ${{ secrets.SFTP_PASSWORD }}
           localDir: './out'
           remoteDir: '.'
-          reverse: true
+          reverse: false
