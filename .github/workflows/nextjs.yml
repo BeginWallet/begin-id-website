@@ -83,15 +83,6 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: ${{ steps.detect-package-manager.outputs.runner }} next build
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./out
-
-  # Deployment job
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
       - name: deploy
         uses: pressidium/lftp-mirror-action@v1
         with:
@@ -100,5 +91,5 @@ jobs:
           user: ${{ secrets.SFTP_USER }}
           pass: ${{ secrets.SFTP_PASSWORD }}
           localDir: './out'
-          remoteDir: '.'
+          remoteDir: '/home/begin_id_website/bgin.id/'
           reverse: false
