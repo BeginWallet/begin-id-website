@@ -90,6 +90,7 @@ jobs:
 
   # Deployment job
   deploy:
+    runs-on: ubuntu-latest
     steps:
       - name: deploy
         uses: pressidium/lftp-mirror-action@v1
