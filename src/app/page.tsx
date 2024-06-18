@@ -6,24 +6,23 @@ import { BeginId } from "@beginwallet/id";
 import { formatShortAddress } from "./helpers";
 
 export default function Home() {
-  const beginId = new BeginId('31cab9edcc1c530e29924a56167d4ed17d50b7fds');
+  const beginId = new BeginId("31cab9edcc1c530e29924a56167d4ed17d50b7fds");
 
   const [username, setUsername] = useState<any>();
   const [profile, setProfile] = useState<any>();
 
   useEffect(() => {
-    const resolve = async (name:string) => {
+    const resolve = async (name: string) => {
       const result = await beginId.resolveAddress(name);
-      console.log({result})
+      console.log({ result });
 
       setProfile(result);
-    }
+    };
     const { host } = window.location;
 
     const splitHost = host.split(".");
     setUsername(splitHost[0]);
     resolve(splitHost[0]);
-
   }, []);
 
   return (
@@ -55,38 +54,65 @@ export default function Home() {
       <div className="w-full lg:max-w-5xl">
         <div className="flex w-full rounded-lg bg-[#3414FC] relative h-28">
           <div className="avatar-bg rounded-full p-1 absolute -bottom-[50px] left-3 ">
-            {profile?.image ? (<Image
-              src={profile?.image}
-              alt={`BeginID: ${profile?.name}`}
-              className="rounded-full"
-              width={96}
-              height={96}
-              priority
-            />): (
+            {profile?.image ? (
+              <Image
+                src={profile?.image}
+                alt={`BeginID: ${profile?.name}`}
+                className="rounded-full"
+                width={96}
+                height={96}
+                priority
+              />
+            ) : (
               <div className="animate-pulse w-[96px] h-[96px] rounded-full bg-slate-700"></div>
             )}
           </div>
         </div>
         <div className="mt-12 p-4">
           <h3 className="text-xl text-bold">{profile?.name}.beginid.io</h3>
-          <p className="text-sm text-gray-500">{formatShortAddress(profile?.address || '')}</p>
-          <div className="pt-8">
-            <p className="text-sm text-gray-500">Bio</p>
-            <p>{profile?.text?.description}</p>
-          </div>
-          <div className="pt-8">
-            <p className="text-sm text-gray-500">Twitter</p>
-            <p>@{profile?.text['com.twitter']}</p>
-          </div>
+          <p className="text-sm text-gray-500">
+            {formatShortAddress(profile?.address || "")}
+          </p>
+          {profile?.text?.description && (
+            <div className="pt-8">
+              <p className="text-sm text-gray-500">Bio</p>
+              <p>{profile?.text?.description}</p>
+            </div>
+          )}
+          {profile?.text["com.twitter"] && (
+            <div className="pt-8">
+              <p className="text-sm text-gray-500">Twitter</p>
+              <p>
+                <a
+                  href={`https://x.com/${profile?.text["com.twitter"]}`}
+                  target="_blank"
+                >
+                  @{profile?.text["com.twitter"]}
+                </a>
+              </p>
+            </div>
+          )}
           <div className="pt-8">
             <p className="text-sm text-gray-500">Addresses</p>
-            <p>{formatShortAddress(profile?.address || '')}</p>
+            <p>
+              {formatShortAddress(profile?.address || "")}{" "}
+              <a
+                role="button"
+                onClick={() => {
+                  navigator.clipboard.writeText(profile?.address);
+                }}
+              >
+                Copy
+              </a>
+            </p>
           </div>
         </div>
       </div>
 
       <div className="w-full footer">
-        <p className="text-center text-sm text-gray-500">BeginID - Universal Wallet Address</p>
+        <p className="text-center text-sm text-gray-500">
+          BeginID - Universal Wallet Address
+        </p>
       </div>
 
       {/* <div className="relative z-[-1] flex place-items-center before:absolute before:h-[300px] before:w-full before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 sm:before:w-[480px] sm:after:w-[240px] before:lg:h-[360px]">
