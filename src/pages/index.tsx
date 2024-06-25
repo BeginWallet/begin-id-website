@@ -249,7 +249,7 @@ export default function Page({
 
           <div className="w-full footer">
             <p className="text-center text-sm text-gray-500">
-              BeginID - Universal Wallet Address</a>
+              BeginID - Universal Wallet Address
             </p>
           </div>
 
