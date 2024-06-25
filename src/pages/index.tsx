@@ -69,8 +69,8 @@ export default function Page({
           httpEquiv="Content-Security-Policy"
           content="default-src https:; frame-ancestors 'none'"
         /> */}
-        <meta name="twitter:card" content="app" />
-        {/* <meta name="twitter:card" content="summary_large_image" /> */}
+        {/* <meta name="twitter:card" content="app" /> */}
+        <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content={profile?.text["com.twitter"] || ''} />
         <meta name="twitter:title" content={`BeginID - ${username}.bgin.id`} />
         <meta
