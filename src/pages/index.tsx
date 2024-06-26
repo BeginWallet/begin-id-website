@@ -80,6 +80,10 @@ export default function Page({
             "Universal Wallet Address by Begin Wallet"
           }
         />
+        <meta
+          name="twitter:image"
+          content={profile?.image || "https://begin.is/images/cover.jpeg"}
+        />
         <meta name="twitter:app:name:iphone" content="Begin Wallet" />
         <meta name="twitter:app:id:iphone" content="1642488837" />
         <meta
@@ -98,11 +102,7 @@ export default function Page({
           name="twitter:app:url:googleplay"
           content="beginwallet://browse?dappUrl=https://begin.is"
         />
-        {/* TODO: Change cover page */}
-        <meta
-          name="twitter:image"
-          content={profile?.image || "https://begin.is/images/cover.jpeg"}
-        />
+        <meta name="og:title" content={`BeginID - ${username}.bgin.id`} />
         <meta
           name="og:description"
           content={
