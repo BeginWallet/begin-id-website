@@ -386,7 +386,7 @@ export default function Page({
                               alt={nft.displayName}
                               className="rounded-lg"
                               placeholder="blur"
-                              blurDataURL="/images/nft_placeholder.png"
+                              blurDataURL="./images/nft_placeholder.png"
                               objectFit="cover"
                               fill
                               // width={48}
