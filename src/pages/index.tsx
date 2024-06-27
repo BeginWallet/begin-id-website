@@ -382,7 +382,7 @@ export default function Page({
                             //     ? lastViewedPhotoRef
                             //     : null
                             // }
-                            className="transition duration-150 ease-out hover:z-10 hover:ease-in hover:scale-125 h-48 w-48 rounded-lg after:content group relative mb-5 block w-full cursor-zoom-in after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:shadow-highlight"
+                            className="transition duration-150 ease-out hover:z-10 hover:ease-in hover:scale-125 h-48 w-48 rounded-lg after:content group relative mb-5 block w-full after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:shadow-highlight"
                           >
                             <Image
                               alt={nft.displayName}
