@@ -10,6 +10,7 @@ import Head from "next/head";
 import useAsset from "@/hooks/useAsset";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import nftPlaceholder from '/images/nft_placeholder.png';
 
 export const getServerSideProps = (async (context) => {
   // Fetch data from external API
@@ -41,35 +42,81 @@ export default function Page({
 
   const router = useRouter();
   const { nftId } = router.query;
-  const [nfts, setNfts] = useState<any>();
+  const [nfts, setNfts] = useState<any[]>();
   const { getByUnit } = useAsset();
   const [selectedNft, setSelectedNft] = useState<any>(null);
+  const [nextPage, setNextPage] = useState(0);
+  const [loadMore, setLoadMore] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingNfts, setIsLoadingNfts] = useState(false);
+  const [hasCopied, setHasCopied] = useState(false);
+
+  const handleLoadMore = async (_assets: any[]) => {
+    if (nextPage > _assets.length) {
+      setLoadMore(false);
+      return;
+    }
+
+    setIsLoadingNfts(true);
+    const assets:any[] = [];
+    let count = 0;
+    let lastIndex = nextPage;
+    // await Promise.all(
+    // _assets.slice(nextPage).(async (asset: any) => {
+    for (const [i, asset] of _assets.slice(nextPage)?.entries()) {
+      const details = await getByUnit(asset.unit, Number(asset.quantity));
+      console.log(details)
+      if (details && details.isNFT) {
+        count += 1;
+        assets.push({
+          ...details,
+          quantity: asset.quantity,
+        });
+        // return {
+        //   ...details,
+        //   quantity: asset.quantity,
+        // };
+      }
+
+      lastIndex += 1;
+
+      if(count >= 9) {
+        break
+      };
+    }
+    // );
+
+    console.log({assets})
+
+    // const filterAssets = assets
+    //   .filter((notUndefined) => notUndefined !== undefined)
+    //   .filter((a) => a.isNFT);
+
+    setNextPage(lastIndex);
+
+    if (lastIndex < _assets.length) {
+      setLoadMore(true);
+    } else {
+      setLoadMore(false);
+    }
+
+    if (assets){
+      setNfts(
+        [
+          ...nfts|| [],
+          ...assets
+        ]
+      );
+    }
+    setIsLoadingNfts(false);
+    // console.log({ filterAssets });
+  };
 
   useEffect(() => {
-    const load = async (_assets: any[]) => {
-      const assets = await Promise.all(
-        await _assets.map(async (asset: any) => {
-          const details = await getByUnit(asset.unit, Number(asset.quantity));
-          if (details) {
-            return {
-              ...details,
-              quantity: asset.quantity,
-            };
-          }
-        })
-      );
-
-      setNfts(
-        assets
-          .filter((notUndefined) => notUndefined !== undefined)
-          .filter((a) => a.isNFT)
-      );
-      console.log({assets})
-    };
     if (profile && !nfts) {
-      load(assets);
+      handleLoadMore(assets);
     }
-  }, [profile]);
+  }, []);
 
   const handleAlert = () => {
     setIsLoading(true);
@@ -81,7 +128,7 @@ export default function Page({
 
   // const [username, setUsername] = useState<any>();
   // const [profile, setProfile] = useState<any>();
-  const [isLoading, setIsLoading] = useState(false);
+  
   // let profile:any = data;
 
   // useEffect(() => {
@@ -296,7 +343,9 @@ export default function Page({
                             <IoCopyOutline />
                           </a>
                           {showCopyAlert && (
-                            <span className="text-sm">Copied to Clipboard!</span>
+                            <span className="text-sm">
+                              Copied to Clipboard!
+                            </span>
                           )}
                         </p>
                       </div>
@@ -304,6 +353,11 @@ export default function Page({
                   </div>
                 </div>
                 <div className="flex-1 pt-8">
+                  <div className="pb-4">
+                    {nfts && nfts.length > 0 && (
+                      <h3 className="text-xl text-bold">NFTs</h3>
+                    )}
+                  </div>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     {nfts?.map((nft: any, i: number) => {
                       const nth = 4;
@@ -326,11 +380,17 @@ export default function Page({
                             //     ? lastViewedPhotoRef
                             //     : null
                             // }
-                            className="after:content group relative mb-5 block w-full cursor-zoom-in after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:shadow-highlight"
+                            className="transition duration-150 ease-out hover:z-10 hover:ease-in hover:scale-125 h-48 w-48 rounded-lg after:content group relative mb-5 block w-full cursor-zoom-in after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:shadow-highlight"
                           >
-                            <img
+                            <Image
                               alt={nft.displayName}
-                              className="object-cover h-48 w-48 rounded-lg"
+                              className="rounded-lg"
+                              placeholder="blur"
+                              blurDataURL="/images/nft_placeholder.png"
+                              objectFit="cover"
+                              fill
+                              // width={48}
+                              // height={48}
                               src={nft.image}
                             />
                             {/* <p>{nft.displayName}</p>
@@ -340,6 +400,48 @@ export default function Page({
                         </div>
                       );
                     })}
+                    {nfts && loadMore && (
+                      <div key={"load-more"}>
+                        <a
+                          aria-disabled={isLoadingNfts}
+                          role="button"
+                          onClick={() => handleLoadMore(assets)}
+                          // href={`/?nftId=${i}`}
+                          // as={`/n/${i}`}
+                          // ref={
+                          //   id === Number(lastViewedPhoto)
+                          //     ? lastViewedPhotoRef
+                          //     : null
+                          // }
+                          className="flex items-center justify-center h-48 w-48 rounded-lg hover:bg-gray-400 hover:opacity-50 after:content group relative mb-5 block after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:shadow-highlight"
+                        >
+                          {isLoadingNfts && (
+                            <svg
+                              className="animate-spin"
+                              width="27"
+                              height="26"
+                              viewBox="0 0 27 26"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M23.7342 14.908C22.3376 16.3087 20.5093 17.1974 18.545 17.4301C18.5664 15.527 18.027 13.6597 16.9941 12.0611C17.5167 12.1382 18.05 12.0935 18.5524 11.9304C19.0548 11.7673 19.5127 11.4903 19.8903 11.121C21.2557 9.78667 21.2371 7.55941 19.8875 6.20976L17.4933 3.81562L21.3072 0L23.7328 2.42594C26.3191 5.01233 26.9648 8.80436 25.6695 11.9932C25.2261 13.0846 24.568 14.0758 23.7342 14.908Z"
+                                fill="currentColor"
+                              />
+                              <path
+                                d="M8.82646 22.1847L5.01263 26.0004L2.58704 23.5744C0.000656735 20.988 -0.645046 17.196 0.65029 14.0071C1.24517 12.548 2.21944 11.2744 3.47213 10.3185C4.72483 9.3625 6.21037 8.75894 7.77482 8.5703C7.75338 10.4734 8.29275 12.3407 9.32565 13.9392C8.8031 13.8621 8.26979 13.9068 7.76738 14.0699C7.26498 14.233 6.80708 14.5101 6.42946 14.8794C5.06408 16.2137 5.08266 18.4409 6.43232 19.7906L8.82646 22.1847Z"
+                                fill="currentColor"
+                              />
+                              <path
+                                d="M15.0677 23.5744L12.6418 26.0004L8.82652 22.1847L11.2521 19.7592C11.8954 19.1158 12.2568 18.2433 12.2568 17.3336C12.2568 16.4238 11.8954 15.5513 11.2521 14.908C9.59688 13.2528 8.66699 11.0078 8.66699 8.66696C8.66699 6.32613 9.59688 4.08117 11.2521 2.42594L13.678 0L17.4933 3.81562L15.0677 6.2412C14.4244 6.88452 14.0631 7.75702 14.0631 8.66679C14.0631 9.57655 14.4244 10.449 15.0677 11.0924C16.7229 12.7476 17.6528 14.9926 17.6528 17.3334C17.6528 19.6742 16.7229 21.9192 15.0677 23.5744Z"
+                                fill="currentColor"
+                              />
+                            </svg>
+                          )}
+                          {!isLoadingNfts && "Load More"}
+                        </a>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
@@ -390,14 +492,18 @@ export default function Page({
                       src={selectedNft.image}
                     />
                     <p className="text-lg leading-relaxed">
-                    {selectedNft.displayName}
+                      {selectedNft.displayName}
                     </p>
                     <p className="text-sm leading-relaxed text-gray-500">
-                      <a href={`https://pool.pm/${selectedNft.fingerprint}`} target="_blank" className="underline text-bold">Pool.pm: {formatShortAddress(selectedNft?.policy)}</a>
+                      <a
+                        href={`https://pool.pm/${selectedNft.fingerprint}`}
+                        target="_blank"
+                        className="underline text-bold"
+                      >
+                        Pool.pm: {formatShortAddress(selectedNft?.policy)}
+                      </a>
                     </p>
-                    <p>
-                      {selectedNft.description}
-                    </p>                    
+                    <p className="pb-4">{selectedNft.description}</p>
                   </div>
                   {/* <!-- Modal footer --> */}
                   {/* <div className="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
