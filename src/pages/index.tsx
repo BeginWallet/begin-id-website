@@ -370,6 +370,8 @@ export default function Page({
                       //   closeTag = true
                       // }
 
+                      let src = nft.image
+
                       return (
                         <div key={nft.fingerprint}>
                           <a
@@ -395,6 +397,7 @@ export default function Page({
                               // width={48}
                               // height={48}
                               src={nft.image}
+                              onError={() => src = nftPlaceholder}
                             />
                             {/* <p>{nft.displayName}</p>
                           <p>{nft.description}</p>
