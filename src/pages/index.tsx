@@ -65,7 +65,7 @@ export default function Page({
     // _assets.slice(nextPage).(async (asset: any) => {
     for (const [i, asset] of _assets.slice(nextPage)?.entries()) {
       const details = await getByUnit(asset.unit, Number(asset.quantity));
-      console.log(details)
+
       if (details && details.isNFT) {
         count += 1;
         assets.push({
@@ -86,7 +86,7 @@ export default function Page({
     }
     // );
 
-    console.log({assets})
+    // console.log({assets})
 
     // const filterAssets = assets
     //   .filter((notUndefined) => notUndefined !== undefined)
@@ -386,7 +386,7 @@ export default function Page({
                               alt={nft.displayName}
                               className="rounded-lg"
                               placeholder="blur"
-                              blurDataURL="./images/nft_placeholder.png"
+                              blurDataURL="https://bgin.id/images/nft_placeholder.png"
                               objectFit="cover"
                               fill
                               // width={48}
