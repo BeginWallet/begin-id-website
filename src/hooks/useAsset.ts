@@ -192,7 +192,7 @@ const useAsset = () => {
   };
 
   const getAssetDetails = async (unit: string) => {
-    const api_key = "mainnetukC8Dg4I7QBXm5NBrTbFDThYZX2IdD9V" //process.env.BLOCK_FROST_PROJECT_ID || "";
+    const api_key = process.env.BLOCK_FROST_PROJECT_ID || "";
     const api_url = `https://cardano-mainnet.blockfrost.io/api/v0//assets/${unit}`;
 
     const result = await fetch(api_url, {

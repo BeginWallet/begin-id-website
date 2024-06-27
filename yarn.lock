@@ -14,10 +14,10 @@
   dependencies:
     regenerator-runtime "^0.14.0"
 
-"@beginwallet/id@0.3.0":
-  version "0.3.0"
-  resolved "https://npm.pkg.github.com/download/@beginwallet/id/0.3.0/128616e7d160c5d8561b0b5134924094485e896c#128616e7d160c5d8561b0b5134924094485e896c"
-  integrity sha512-JxoST+ZKqIvnVI7bebEQdC6wvu84NL8K1+1B7+j5EfNPt8sFI+sng/czpxsYVIRwZMRUMlmQ1fN1qwWIyo2jPw==
+"@beginwallet/id@0.4.0":
+  version "0.4.0"
+  resolved "https://npm.pkg.github.com/download/@beginwallet/id/0.4.0/103e36d2c2f2cea68369c8bd18ce54e06f0d3fad#103e36d2c2f2cea68369c8bd18ce54e06f0d3fad"
+  integrity sha512-G3OcFwi+8qy18neSI6PTbliiw22yqNLJBDFWLJj567Z1BF2nOg8cFks4UO3mcWhCGj+rDEHuk732r3dhL7svgw==
 
 "@emurgo/cip14-js@^3.0.1":
   version "3.0.1"

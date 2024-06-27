@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@beginwallet/id": "0.3.0",
+    "@beginwallet/id": "0.4.0",
     "@emurgo/cip14-js": "^3.0.1",
     "next": "14.2.4",
     "react": "18.3.1",
