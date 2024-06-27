@@ -7,6 +7,9 @@ import { FaXTwitter } from "react-icons/fa6";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import RootLayout from "@/app/layout";
 import Head from "next/head";
+import useAsset from "@/hooks/useAsset";
+import { useRouter } from "next/router";
+import Link from "next/link";
 
 export const getServerSideProps = (async (context) => {
   // Fetch data from external API
@@ -14,27 +17,71 @@ export const getServerSideProps = (async (context) => {
   // console.log(context.req.headers.host);
   if (!context.req.headers.host) return { props: { profile: null } };
 
-  const name = context.req.headers.host.replace(/(\.bgin\.id|\.beginid\.io|\.bgn\.is|.localhost\:3000)$/, "");
-  console.log({name})
+  const name = context.req.headers.host.replace(
+    /(\.bgin\.id|\.beginid\.io|\.bgn\.is|.localhost\:3000)$/,
+    ""
+  );
+  console.log({ name });
   const profile = await beginId.resolveAddress(name);
-  return { props: { profile } };
+
+  const { getAssets, getByUnit } = useAsset();
+
+  const assets = await getAssets(profile?.address);
+
+  // console.log({assets})
+
+  return { props: { profile, assets: assets || [] } };
 }) satisfies GetServerSideProps<{ profile: any }>;
 
 export default function Page({
   profile,
+  assets,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   let showCopyAlert = false;
 
-  const handleAlert = () => {
-    showCopyAlert = true;
+  const router = useRouter();
+  const { nftId } = router.query;
+  const [nfts, setNfts] = useState<any>();
+  const { getByUnit } = useAsset();
+  const [selectedNft, setSelectedNft] = useState<any>(null);
 
-    setTimeout((showCopyAlert) => {showCopyAlert=false}, 300, showCopyAlert)
-  }
+  useEffect(() => {
+    const load = async (_assets: any[]) => {
+      const assets = await Promise.all(
+        await _assets.map(async (asset: any) => {
+          const details = await getByUnit(asset.unit, Number(asset.quantity));
+          if (details) {
+            return {
+              ...details,
+              quantity: asset.quantity,
+            };
+          }
+        })
+      );
+
+      setNfts(
+        assets
+          .filter((notUndefined) => notUndefined !== undefined)
+          .filter((a) => a.isNFT)
+      );
+      console.log({assets})
+    };
+    if (profile && !nfts) {
+      load(assets);
+    }
+  }, [profile]);
+
+  const handleAlert = () => {
+    setIsLoading(true);
+
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 300);
+  };
 
   // const [username, setUsername] = useState<any>();
   // const [profile, setProfile] = useState<any>();
-  // const [isLoading, setIsLoading] = useState(true);
-  let isLoading = false;
+  const [isLoading, setIsLoading] = useState(false);
   // let profile:any = data;
 
   // useEffect(() => {
@@ -58,7 +105,7 @@ export default function Page({
 
   // const splitHost = host.split(".");
   // setUsername(splitHost[0]);
-  let username = profile?.name; 
+  let username = profile?.name;
   // resolve(splitHost[0]);
 
   return (
@@ -71,7 +118,10 @@ export default function Page({
         /> */}
         {/* <meta name="twitter:card" content="app" /> */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content={profile?.text["com.twitter"] || ''} />
+        <meta
+          name="twitter:site"
+          content={profile?.text["com.twitter"] || ""}
+        />
         <meta name="twitter:title" content={`BeginID - ${username}.bgin.id`} />
         <meta
           name="twitter:description"
@@ -200,52 +250,164 @@ export default function Page({
                 </svg>
               </div>
             ) : (
-              <div className="mt-12 p-4">
-                <h3 className="text-xl text-bold">{profile?.name}.bgin.id</h3>
-                <p className="text-sm text-gray-500">
-                  {formatShortAddress(profile?.address || "")}
-                </p>
-                {profile?.text?.description && (
-                  <div className="pt-8">
-                    <p className="text-sm text-gray-500">Bio</p>
-                    <p>{profile?.text?.description}</p>
-                  </div>
-                )}
-                {profile?.text["com.twitter"] && (
-                  <div className="pt-8">
-                    <p className="text-sm text-gray-500">Twitter</p>
-                    <p>
-                      <a
-                        className="flex items-center"
-                        href={`https://x.com/${profile?.text["com.twitter"]}`}
-                        target="_blank"
-                      >
-                        <FaXTwitter style={{ paddingRight: "4px" }} /> @
-                        {profile?.text["com.twitter"]}
-                      </a>
+              <div className="flex gap-4 flex-col md:flex-row">
+                <div className="flex-none">
+                  <div className="mt-12 p-4">
+                    <h3 className="text-xl text-bold">
+                      {profile?.name}.bgin.id
+                    </h3>
+                    <p className="text-sm text-gray-500">
+                      {formatShortAddress(profile?.address || "")}
                     </p>
+                    {profile?.text?.description && (
+                      <div className="pt-8">
+                        <p className="text-sm text-gray-500">Bio</p>
+                        <p>{profile?.text?.description}</p>
+                      </div>
+                    )}
+                    <div className="flex flex-row md:flex-col justify-between">
+                      {profile?.text["com.twitter"] && (
+                        <div className="pt-8">
+                          <p className="text-sm text-gray-500">Twitter</p>
+                          <p>
+                            <a
+                              className="flex items-center"
+                              href={`https://x.com/${profile?.text["com.twitter"]}`}
+                              target="_blank"
+                            >
+                              <FaXTwitter style={{ paddingRight: "4px" }} /> @
+                              {profile?.text["com.twitter"]}
+                            </a>
+                          </p>
+                        </div>
+                      )}
+                      <div className="pt-8">
+                        <p className="text-sm text-gray-500">Addresses</p>
+                        <p className="flex items-center">
+                          {formatShortAddress(profile?.address || "")}{" "}
+                          <a
+                            className="pl-2"
+                            role="button"
+                            onClick={() => {
+                              navigator.clipboard.writeText(profile?.address);
+                              handleAlert();
+                            }}
+                          >
+                            <IoCopyOutline />
+                          </a>
+                          {showCopyAlert && (
+                            <span className="text-sm">Copied to Clipboard!</span>
+                          )}
+                        </p>
+                      </div>
+                    </div>
                   </div>
-                )}
-                <div className="pt-8">
-                  <p className="text-sm text-gray-500">Addresses</p>
-                  <p className="flex items-center">
-                    {formatShortAddress(profile?.address || "")}{" "}
-                    <a
-                      className="pl-2"
-                      role="button"
-                      onClick={() => {
-                        navigator.clipboard.writeText(profile?.address);
-                        handleAlert();
-                      }}
-                    >
-                      <IoCopyOutline />
-                    </a>
-                    {showCopyAlert && <span className="text-sm">Copied to Clipboard!</span>}
-                  </p>
+                </div>
+                <div className="flex-1 pt-8">
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    {nfts?.map((nft: any, i: number) => {
+                      const nth = 4;
+                      let closeTag = false;
+
+                      // if (i % nth === nth - 1){
+                      //   closeTag = true
+                      // }
+
+                      return (
+                        <div key={nft.fingerprint}>
+                          <a
+                            role="button"
+                            key={i}
+                            onClick={() => setSelectedNft(nft)}
+                            // href={`/?nftId=${i}`}
+                            // as={`/n/${i}`}
+                            // ref={
+                            //   id === Number(lastViewedPhoto)
+                            //     ? lastViewedPhotoRef
+                            //     : null
+                            // }
+                            className="after:content group relative mb-5 block w-full cursor-zoom-in after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:shadow-highlight"
+                          >
+                            <img
+                              alt={nft.displayName}
+                              className="object-cover h-48 w-48 rounded-lg"
+                              src={nft.image}
+                            />
+                            {/* <p>{nft.displayName}</p>
+                          <p>{nft.description}</p>
+                          <p>{nft.fingerprint}</p> */}
+                          </a>
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
               </div>
             )}
           </div>
+          {/* <!-- Main modal --> */}
+          {selectedNft && (
+            <div
+              id={`default-modal`}
+              tabIndex={-1}
+              aria-hidden="true"
+              className="flex overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full"
+            >
+              <div className="relative p-4 w-full max-w-2xl max-h-full rounded-lg">
+                {/* <!-- Modal content --> */}
+                <div className="relative bg-modal rounded-lg shadow">
+                  {/* <!-- Modal header --> */}
+                  <div className="flex items-center justify-between p-4 pb-2 md:p-5 md:pb-2 rounded-t dark:border-gray-600">
+                    <button
+                      type="button"
+                      className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                      data-modal-hide="default-modal"
+                      onClick={() => setSelectedNft(null)}
+                    >
+                      <svg
+                        className="w-3 h-3"
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 14 14"
+                      >
+                        <path
+                          stroke="currentColor"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+                        />
+                      </svg>
+                      <span className="sr-only">Close modal</span>
+                    </button>
+                  </div>
+                  {/* <!-- Modal body --> */}
+                  <div className="p-4 md:p-5 space-y-4">
+                    <img
+                      alt={selectedNft.displayName}
+                      className="object-cover h-auto w-full rounded-lg"
+                      src={selectedNft.image}
+                    />
+                    <p className="text-lg leading-relaxed">
+                    {selectedNft.displayName}
+                    </p>
+                    <p className="text-sm leading-relaxed text-gray-500">
+                      <a href={`https://pool.pm/${selectedNft.fingerprint}`} target="_blank" className="underline text-bold">Pool.pm: {formatShortAddress(selectedNft?.policy)}</a>
+                    </p>
+                    <p>
+                      {selectedNft.description}
+                    </p>                    
+                  </div>
+                  {/* <!-- Modal footer --> */}
+                  {/* <div className="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
+                                            <button data-modal-hide="default-modal" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">I accept</button>
+                                            <button data-modal-hide="default-modal" type="button" class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Decline</button>
+                                        </div> */}
+                </div>
+              </div>
+            </div>
+          )}
 
           <div className="w-full footer">
             <p className="text-center text-sm text-gray-500">

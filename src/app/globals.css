@@ -30,6 +30,17 @@ body {
     rgb(var(--background-start-rgb));
 }
 
+.bg-modal {
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgba(var(--background-end-rgb), 0.7)
+    )
+    rgba(var(--background-start-rgb),0.7);
+
+  backdrop-filter: blur(10px);
+}
+
 .avatar-bg {
   background-color: rgb(255, 255, 255);
 }
