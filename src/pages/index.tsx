@@ -261,14 +261,23 @@ export default function Page({
             <div className="flex w-full rounded-lg bg-[#3414FC] relative h-28">
               <div className="avatar-bg rounded-full p-1 absolute -bottom-[50px] left-3 ">
                 {profile?.image ? (
-                  <Image
-                    src={profile?.image}
-                    alt={`BeginID: ${profile?.name}`}
-                    className="rounded-full"
-                    width={96}
-                    height={96}
-                    priority
-                  />
+                  <a role="button" 
+                    onClick={() => setSelectedNft({
+                      displayName: `${profile?.name}.bgin.id`,
+                      image: profile?.image,
+                      fingerprint: profile?.address,
+                      policy: profile?.address,
+                      description: profile?.text?.description
+                    })}>
+                    <Image
+                      src={profile?.image}
+                      alt={`BeginID: ${profile?.name}`}
+                      className="rounded-full"
+                      width={96}
+                      height={96}
+                      priority
+                    />
+                  </a>
                 ) : (
                   <div className="animate-pulse w-[96px] h-[96px] rounded-full bg-slate-700"></div>
                 )}
@@ -497,7 +506,7 @@ export default function Page({
                         target="_blank"
                         className="underline font-bold"
                       >
-                        Pool.pm: {formatShortAddress(selectedNft?.policy)}
+                        Pool.pm: {formatShortAddress(selectedNft?.policy || '')}
                       </a>
                     </p>
                     <p className="pb-4">{selectedNft.description}</p>
