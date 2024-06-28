@@ -192,7 +192,7 @@ const useAsset = () => {
   };
 
   const getAssetDetails = async (unit: string) => {
-    const api_key = process.env.BLOCK_FROST_PROJECT_ID || "";
+    const api_key = process.env.NEXT_PUBLIC_BLOCK_FROST_PROJECT_ID || "";
     const api_url = `https://cardano-mainnet.blockfrost.io/api/v0//assets/${unit}`;
 
     const result = await fetch(api_url, {
@@ -210,7 +210,7 @@ const useAsset = () => {
   };
 
   const getAssets = async (address: string) => {
-    const api_key = process.env.BLOCK_FROST_PROJECT_ID || "";
+    const api_key = process.env.NEXT_PUBLIC_BLOCK_FROST_PROJECT_ID || "";
     const api_url = `https://cardano-mainnet.blockfrost.io/api/v0/addresses/${address}/extended?order=desc`; //&page=2&count=100
 
     const result = await fetch(api_url, {
