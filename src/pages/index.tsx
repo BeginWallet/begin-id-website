@@ -269,14 +269,18 @@ export default function Page({
                       policy: profile?.address,
                       description: profile?.text?.description
                     })}>
+                    <div className="w-[96px] h-[96px] relative">
                     <Image
                       src={profile?.image}
                       alt={`BeginID: ${profile?.name}`}
                       className="rounded-full"
-                      width={96}
-                      height={96}
+                      // width={96}
+                      // height={96}
                       priority
+                      fill
+                      style={{objectFit: "cover"}}  
                     />
+                    </div>
                   </a>
                 ) : (
                   <div className="animate-pulse w-[96px] h-[96px] rounded-full bg-slate-700"></div>
@@ -309,7 +313,7 @@ export default function Page({
               </div>
             ) : (
               <div className="flex gap-4 flex-col md:flex-row">
-                <div className="flex-none">
+                <div className="flex-1">
                   <div className="mt-12 p-4">
                     <h3 className="text-xl font-bold">
                       {profile?.name}.bgin.id
@@ -318,9 +322,9 @@ export default function Page({
                       {formatShortAddress(profile?.address || "")}
                     </p>
                     {profile?.text?.description && (
-                      <div className="pt-8">
+                      <div className="pt-8 text-wrap">
                         <p className="text-sm text-gray-500">Bio</p>
-                        <p>{profile?.text?.description}</p>
+                        <p className="break-all whitespace-pre-line">{profile?.text?.description}</p>
                       </div>
                     )}
                     <div className="flex flex-row md:flex-col justify-between">
