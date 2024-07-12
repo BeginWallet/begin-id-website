@@ -7,10 +7,11 @@ import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import RootLayout from "@/app/layout";
 import Head from "next/head";
 import useAsset from "@/hooks/useAsset";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import NftImage from "@/components/nft-image";
+import { redirect } from "next/navigation";
 
 const MAX_ITEMS = 11
 
@@ -25,6 +26,7 @@ export const getServerSideProps = (async (context) => {
     ""
   );
   console.log({ name });
+
   const profile = await beginId.resolveAddress(name);
 
   const { getAssets, getByUnit } = useAsset();
@@ -43,7 +45,7 @@ export default function Page({
   let showCopyAlert = false;
 
   const router = useRouter();
-  const { nftId } = router.query;
+  // const { nftId } = router.query;
   const [nfts, setNfts] = useState<any[]>();
   const { getByUnit } = useAsset();
   const [selectedNft, setSelectedNft] = useState<any>(null);
@@ -115,6 +117,14 @@ export default function Page({
   };
 
   useEffect(() => {
+    if(!profile){
+      router.push('https://begin.is/#beginid');
+    }
+    // if (!profile){
+    //   // window.location.assign('https://begin.is/#beginid')
+    //   return;
+    // }
+
     if (profile && !nfts) {
       handleLoadMore(assets);
     }
@@ -324,7 +334,7 @@ export default function Page({
                     {profile?.text?.description && (
                       <div className="pt-8 text-wrap">
                         <p className="text-sm text-gray-500">Bio</p>
-                        <p className="break-all whitespace-pre-line">{profile?.text?.description}</p>
+                        <p className="break-word whitespace-pre-line">{profile?.text?.description}</p>
                       </div>
                     )}
                     <div className="flex flex-row md:flex-col justify-between">

@@ -16,6 +16,15 @@ const nextConfig = {
           },
         ],
       },
+    rewrites: async () => {
+        return [
+            {
+                source: '/beginid', 
+                destination: 'https://begin.is/#beginid',
+                basePath: false
+            }
+        ]
+    }
 };
 
 export default nextConfig;
