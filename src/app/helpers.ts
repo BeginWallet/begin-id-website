@@ -1,4 +1,4 @@
-const ipfs= 'https://ipfs.io/ipfs';
+const ipfs= 'https://c-ipfs-gw.nmkr.io/ipfs';
 
 export const formatShortAddress = (addr: String): React.ReactNode => {
   return addr.substring(0, 8) + "..." + addr.substring(addr.length - 6);
@@ -21,6 +21,9 @@ export const linkToSrc = (link: string, base64: boolean = false) => {
   const linkParsed = convertMetadataPropToString(link) || "";
   const base64regex =
     /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/;
+
+  const ipfsGateway = 'https://ipfs.io/ipfs';
+  if (linkParsed.startsWith(ipfsGateway)) return linkParsed.replace(ipfsGateway, ipfs);
   if (linkParsed.startsWith("https://")) return linkParsed;
   else if (linkParsed.startsWith("ipfs://"))
     return (
