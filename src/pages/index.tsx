@@ -366,7 +366,7 @@ export default function Page({
               width: '100%',
               overflow: 'hidden',
               minWidth: '100%',
-              height: '50vh',
+              height: '60%',
               zIndex: -1,
               top: 0
             }}>
