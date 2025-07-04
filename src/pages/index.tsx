@@ -171,6 +171,146 @@ export default function Page({
   return (
     <>
       <Head>
+        <meta
+          name="viewport"
+          content="width=device-width, height=device-height, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover'"
+        />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/favicon/apple-touch-icon.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/favicon/favicon-32x32.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/favicon/favicon-16x16.png"
+        />
+        <link rel="manifest" href="/favicon/site.webmanifest" />
+        <link
+          rel="mask-icon"
+          href="/favicon/safari-pinned-tab.svg"
+          color="#000000"
+        />
+        <link rel="shortcut icon" href="/favicon/favicon.ico" />
+        <meta name="msapplication-TileColor" content="#000000" />
+        <meta name="msapplication-config" content="/favicon/browserconfig.xml" />
+        <meta name="theme-color" content="#000" />
+        <link rel="alternate" type="application/rss+xml" href="/feed.xml" />
+        <meta name="apple-mobile-web-app-title" content="B58 Finance"></meta>
+        <meta name="apple-mobile-web-app-capable" content="yes"></meta>
+        <meta
+          name="apple-mobile-web-app-status-bar-style"
+          content="black-translucent"
+        ></meta>
+        {/*iOS Splashscreen Light */}
+        <link
+          href="splashscreens-light/iphone5_splash.png"
+          media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (prefers-color-scheme: light)"
+          rel="apple-touch-startup-image"
+        />
+        <link
+          href="splashscreens-light/iphone6_splash.png"
+          media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (prefers-color-scheme: light)"
+          rel="apple-touch-startup-image"
+        />
+        <link
+          href="splashscreens-light/iphoneplus_splash.png"
+          media="(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3) and (prefers-color-scheme: light)"
+          rel="apple-touch-startup-image"
+        />
+        <link
+          href="splashscreens-light/iphonex_splash.png"
+          media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (prefers-color-scheme: light)"
+          rel="apple-touch-startup-image"
+        />
+        <link
+          href="splashscreens-light/iphonexr_splash.png"
+          media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (prefers-color-scheme: light)"
+          rel="apple-touch-startup-image"
+        />
+        <link
+          href="splashscreens-light/iphonexsmax_splash.png"
+          media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (prefers-color-scheme: light)"
+          rel="apple-touch-startup-image"
+        />
+        <link
+          href="splashscreens-light/ipad_splash.png"
+          media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (prefers-color-scheme: light)"
+          rel="apple-touch-startup-image"
+        />
+        <link
+          href="splashscreens-light/ipadpro1_splash.png"
+          media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2) and (prefers-color-scheme: light)"
+          rel="apple-touch-startup-image"
+        />
+        <link
+          href="splashscreens-light/ipadpro3_splash.png"
+          media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2) and (prefers-color-scheme: light)"
+          rel="apple-touch-startup-image"
+        />
+        <link
+          href="splashscreens-light/ipadpro2_splash.png"
+          media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (prefers-color-scheme: light)"
+          rel="apple-touch-startup-image"
+        />
+        {/*iOS Splashscreen Dark */}
+        <link
+          href="splashscreens-dark/iphone5_splash.png"
+          media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (prefers-color-scheme: dark)"
+          rel="apple-touch-startup-image"
+        />
+        <link
+          href="splashscreens-dark/iphone6_splash.png"
+          media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (prefers-color-scheme: dark)"
+          rel="apple-touch-startup-image"
+        />
+        <link
+          href="splashscreens-dark/iphoneplus_splash.png"
+          media="(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3) and (prefers-color-scheme: dark)"
+          rel="apple-touch-startup-image"
+        />
+        <link
+          href="splashscreens-dark/iphonex_splash.png"
+          media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (prefers-color-scheme: dark)"
+          rel="apple-touch-startup-image"
+        />
+        <link
+          href="splashscreens-dark/iphonexr_splash.png"
+          media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (prefers-color-scheme: dark)"
+          rel="apple-touch-startup-image"
+        />
+        <link
+          href="splashscreens-dark/iphonexsmax_splash.png"
+          media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (prefers-color-scheme: dark)"
+          rel="apple-touch-startup-image"
+        />
+        <link
+          href="splashscreens-dark/ipad_splash.png"
+          media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (prefers-color-scheme: dark)"
+          rel="apple-touch-startup-image"
+        />
+        <link
+          href="splashscreens-dark/ipadpro1_splash.png"
+          media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2) and (prefers-color-scheme: dark)"
+          rel="apple-touch-startup-image"
+        />
+        <link
+          href="splashscreens-dark/ipadpro3_splash.png"
+          media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2) and (prefers-color-scheme: dark)"
+          rel="apple-touch-startup-image"
+        />
+        <link
+          href="splashscreens-dark/ipadpro2_splash.png"
+          media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (prefers-color-scheme: dark)"
+          rel="apple-touch-startup-image"
+        />
         <title>{`Begin ID - ${username}.bgin.id`}</title>
         {/* <meta
           httpEquiv="Content-Security-Policy"
@@ -219,7 +359,7 @@ export default function Page({
           /> */}
       </Head>
       <RootLayout>
-        <main className="flex min-h-screen flex-col items-center justify-flex-start p-8 pt-8">
+        <main className="flex flex-col items-center min-h-screen p-8 pt-8">
           {profile?.image && (
             <div
               style={{
@@ -245,7 +385,7 @@ export default function Page({
             ></div>
           )}
 
-          <div className="z-10 w-full max-w-5xl items-center justify-between md:justify-end font-mono text-sm lg:flex md:pb-8">
+          <div className="z-10 w-full max-w-5xl items-center justify-between md:justify-end font-mono text-sm flex md:pb-8">
             {/* <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
           BeginID: @{username}
         </p> */}
@@ -375,24 +515,49 @@ export default function Page({
                       </div>
                     </div>
                   </div>
-                  <div className="mt-6 pb-4">{nfts && nfts.length > 0 && <h3 className="text-xl font-bold">Collectibles (NFTs)</h3>}</div>
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pb-20">
-                    {nfts?.map((nft: any, i: number) => {
-                      const nth = 4;
-                      let closeTag = false;
+                </div>
+                <div className="flex flex-col w-full">
+                    <div className="mt-6 pb-4">{nfts && nfts.length > 0 && <h3 className="text-xl font-bold">Collectibles (NFTs)</h3>}</div>
+                    <div className="w-full grid grid-cols-3 md:grid-cols-6 gap-4 pb-20">
+                      {nfts?.map((nft: any, i: number) => {
+                        const nth = 4;
+                        let closeTag = false;
 
-                      // if (i % nth === nth - 1){
-                      //   closeTag = true
-                      // }
+                        // if (i % nth === nth - 1){
+                        //   closeTag = true
+                        // }
 
-                      let src = nft.image;
+                        let src = nft.image;
 
-                      return (
-                        <div key={nft.fingerprint}>
+                        return (
+                          <div key={nft.fingerprint}>
+                            <a
+                              role="button"
+                              key={i}
+                              onClick={() => setSelectedNft(nft)}
+                              // href={`/?nftId=${i}`}
+                              // as={`/n/${i}`}
+                              // ref={
+                              //   id === Number(lastViewedPhoto)
+                              //     ? lastViewedPhotoRef
+                              //     : null
+                              // }
+                              className="transition duration-150 ease-out hover:z-10 hover:ease-in hover:scale-125 h-auto aspect-square rounded-lg after:content group relative mb-5 block w-full after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:shadow-highlight"
+                            >
+                              <NftImage alt={nft.displayName} imageUrl={nft.image} />
+                              {/* <p>{nft.displayName}</p>
+                            <p>{nft.description}</p>
+                            <p>{nft.fingerprint}</p> */}
+                            </a>
+                          </div>
+                        );
+                      })}
+                      {nfts && loadMore && (
+                        <div key={'load-more'}>
                           <a
+                            aria-disabled={isLoadingNfts}
                             role="button"
-                            key={i}
-                            onClick={() => setSelectedNft(nft)}
+                            onClick={() => handleLoadMore(assets)}
                             // href={`/?nftId=${i}`}
                             // as={`/n/${i}`}
                             // ref={
@@ -400,60 +565,36 @@ export default function Page({
                             //     ? lastViewedPhotoRef
                             //     : null
                             // }
-                            className="transition duration-150 ease-out hover:z-10 hover:ease-in hover:scale-125 h-auto aspect-square rounded-lg after:content group relative mb-5 block w-full after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:shadow-highlight"
+                            className="transition duration-150 ease-out hover:z-10 hover:ease-in hover:scale-125  font-bold text-md underline flex items-center justify-center aspect-square h-auto w-full rounded-lg hover:bg-gray-400 hover:opacity-50 after:content group relative mb-5 block after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:shadow-highlight"
+                            // className="items-center text-lg transition duration-150 ease-out hover:z-10 hover:ease-in hover:scale-125 h-auto aspect-square rounded-lg after:content group relative mb-5 block w-full after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:shadow-highlight"
                           >
-                            <NftImage alt={nft.displayName} imageUrl={nft.image} />
-                            {/* <p>{nft.displayName}</p>
-                          <p>{nft.description}</p>
-                          <p>{nft.fingerprint}</p> */}
+                            {isLoadingNfts && (
+                                <svg
+                                  className="p-10 animate-spin"
+                                  viewBox="0 0 27 26"
+                                  fill="none"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    d="M23.7342 14.908C22.3376 16.3087 20.5093 17.1974 18.545 17.4301C18.5664 15.527 18.027 13.6597 16.9941 12.0611C17.5167 12.1382 18.05 12.0935 18.5524 11.9304C19.0548 11.7673 19.5127 11.4903 19.8903 11.121C21.2557 9.78667 21.2371 7.55941 19.8875 6.20976L17.4933 3.81562L21.3072 0L23.7328 2.42594C26.3191 5.01233 26.9648 8.80436 25.6695 11.9932C25.2261 13.0846 24.568 14.0758 23.7342 14.908Z"
+                                    fill="currentColor"
+                                  />
+                                  <path
+                                    d="M8.82646 22.1847L5.01263 26.0004L2.58704 23.5744C0.000656735 20.988 -0.645046 17.196 0.65029 14.0071C1.24517 12.548 2.21944 11.2744 3.47213 10.3185C4.72483 9.3625 6.21037 8.75894 7.77482 8.5703C7.75338 10.4734 8.29275 12.3407 9.32565 13.9392C8.8031 13.8621 8.26979 13.9068 7.76738 14.0699C7.26498 14.233 6.80708 14.5101 6.42946 14.8794C5.06408 16.2137 5.08266 18.4409 6.43232 19.7906L8.82646 22.1847Z"
+                                    fill="currentColor"
+                                  />
+                                  <path
+                                    d="M15.0677 23.5744L12.6418 26.0004L8.82652 22.1847L11.2521 19.7592C11.8954 19.1158 12.2568 18.2433 12.2568 17.3336C12.2568 16.4238 11.8954 15.5513 11.2521 14.908C9.59688 13.2528 8.66699 11.0078 8.66699 8.66696C8.66699 6.32613 9.59688 4.08117 11.2521 2.42594L13.678 0L17.4933 3.81562L15.0677 6.2412C14.4244 6.88452 14.0631 7.75702 14.0631 8.66679C14.0631 9.57655 14.4244 10.449 15.0677 11.0924C16.7229 12.7476 17.6528 14.9926 17.6528 17.3334C17.6528 19.6742 16.7229 21.9192 15.0677 23.5744Z"
+                                    fill="currentColor"
+                                  />
+                                </svg>
+                            )}
+                            {!isLoadingNfts && 'Load More'}
                           </a>
                         </div>
-                      );
-                    })}
-                    {nfts && loadMore && (
-                      <div key={'load-more'}>
-                        <a
-                          aria-disabled={isLoadingNfts}
-                          role="button"
-                          onClick={() => handleLoadMore(assets)}
-                          // href={`/?nftId=${i}`}
-                          // as={`/n/${i}`}
-                          // ref={
-                          //   id === Number(lastViewedPhoto)
-                          //     ? lastViewedPhotoRef
-                          //     : null
-                          // }
-                          className="font-bold text-lg underline flex items-center justify-center aspect-square h-auto w-full rounded-lg hover:bg-gray-400 hover:opacity-50 after:content group relative mb-5 block after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:shadow-highlight"
-                        >
-                          {isLoadingNfts && (
-                            <svg
-                              className="animate-spin"
-                              width="27"
-                              height="26"
-                              viewBox="0 0 27 26"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M23.7342 14.908C22.3376 16.3087 20.5093 17.1974 18.545 17.4301C18.5664 15.527 18.027 13.6597 16.9941 12.0611C17.5167 12.1382 18.05 12.0935 18.5524 11.9304C19.0548 11.7673 19.5127 11.4903 19.8903 11.121C21.2557 9.78667 21.2371 7.55941 19.8875 6.20976L17.4933 3.81562L21.3072 0L23.7328 2.42594C26.3191 5.01233 26.9648 8.80436 25.6695 11.9932C25.2261 13.0846 24.568 14.0758 23.7342 14.908Z"
-                                fill="currentColor"
-                              />
-                              <path
-                                d="M8.82646 22.1847L5.01263 26.0004L2.58704 23.5744C0.000656735 20.988 -0.645046 17.196 0.65029 14.0071C1.24517 12.548 2.21944 11.2744 3.47213 10.3185C4.72483 9.3625 6.21037 8.75894 7.77482 8.5703C7.75338 10.4734 8.29275 12.3407 9.32565 13.9392C8.8031 13.8621 8.26979 13.9068 7.76738 14.0699C7.26498 14.233 6.80708 14.5101 6.42946 14.8794C5.06408 16.2137 5.08266 18.4409 6.43232 19.7906L8.82646 22.1847Z"
-                                fill="currentColor"
-                              />
-                              <path
-                                d="M15.0677 23.5744L12.6418 26.0004L8.82652 22.1847L11.2521 19.7592C11.8954 19.1158 12.2568 18.2433 12.2568 17.3336C12.2568 16.4238 11.8954 15.5513 11.2521 14.908C9.59688 13.2528 8.66699 11.0078 8.66699 8.66696C8.66699 6.32613 9.59688 4.08117 11.2521 2.42594L13.678 0L17.4933 3.81562L15.0677 6.2412C14.4244 6.88452 14.0631 7.75702 14.0631 8.66679C14.0631 9.57655 14.4244 10.449 15.0677 11.0924C16.7229 12.7476 17.6528 14.9926 17.6528 17.3334C17.6528 19.6742 16.7229 21.9192 15.0677 23.5744Z"
-                                fill="currentColor"
-                              />
-                            </svg>
-                          )}
-                          {!isLoadingNfts && 'Load More'}
-                        </a>
-                      </div>
-                    )}
+                      )}
+                    </div>
                   </div>
-                </div>
               </div>
             )}
           </div>
