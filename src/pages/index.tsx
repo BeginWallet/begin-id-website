@@ -28,6 +28,7 @@ export const getServerSideProps = (async (context) => {
   console.log({ name });
 
   const profile = await beginId.resolveAddress(name);
+  // console.log({ profile });
 
   const { getAssets, getByUnit } = useAsset();
 
@@ -170,59 +171,35 @@ export default function Page({
   return (
     <>
       <Head>
-        <title>{`BeginID - ${username}.bgin.id`}</title>
+        <title>{`Begin ID - ${username}.bgin.id`}</title>
         {/* <meta
           httpEquiv="Content-Security-Policy"
           content="default-src https:; frame-ancestors 'none'"
         /> */}
         {/* <meta name="twitter:card" content="app" /> */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta
-          name="twitter:site"
-          content={profile?.text["com.twitter"] || ""}
-        />
-        <meta name="twitter:title" content={`BeginID - ${username}.bgin.id`} />
+        <meta name="twitter:site" content={profile?.text['com.twitter'] || ''} />
+        <meta name="twitter:title" content={`Begin ID - ${username}.bgin.id`} />
         <meta
           name="twitter:description"
-          content={
-            profile?.text?.description ||
-            "Universal Wallet Address by Begin Wallet"
-          }
+          content={profile?.text?.description || 'Begin ID - Universal Wallet Address by Begin Wallet'}
         />
-        <meta
-          name="twitter:image"
-          content={profile?.image || "https://begin.is/images/cover.jpeg"}
-        />
+        <meta name="twitter:image" content={profile?.image || 'https://begin.is/images/cover.jpeg'} />
         <meta name="twitter:app:name:iphone" content="Begin Wallet" />
         <meta name="twitter:app:id:iphone" content="1642488837" />
-        <meta
-          name="twitter:app:url:iphone"
-          content="beginwallet://browse?dappUrl=https://begin.is"
-        />
+        <meta name="twitter:app:url:iphone" content="beginwallet://browse?dappUrl=https://begin.is" />
         <meta name="twitter:app:name:ipad" content="Begin Wallet" />
         <meta name="twitter:app:id:ipad" content="1642488837" />
-        <meta
-          name="twitter:app:url:ipad"
-          content="beginwallet://browse?dappUrl=https://begin.is"
-        />
+        <meta name="twitter:app:url:ipad" content="beginwallet://browse?dappUrl=https://begin.is" />
         <meta name="twitter:app:name:googleplay" content="Begin Wallet" />
         <meta name="twitter:app:id:googleplay" content="is.begin.app" />
-        <meta
-          name="twitter:app:url:googleplay"
-          content="beginwallet://browse?dappUrl=https://begin.is"
-        />
-        <meta name="og:title" content={`BeginID - ${username}.bgin.id`} />
+        <meta name="twitter:app:url:googleplay" content="beginwallet://browse?dappUrl=https://begin.is" />
+        <meta name="og:title" content={`Begin ID - ${username}.bgin.id`} />
         <meta
           name="og:description"
-          content={
-            profile?.text?.description ||
-            "Universal Wallet Address by Begin Wallet"
-          }
+          content={profile?.text?.description || 'Universal Wallet Address by Begin Wallet'}
         />
-        <meta
-          property="og:image"
-          content={profile?.image || "https://begin.is/images/cover.jpeg"}
-        />
+        <meta property="og:image" content={profile?.image || 'https://begin.is/images/cover.jpeg'} />
         {/* Global Site Tag (gtag.js) - Google Analytics */}
         {/* <script
             async
@@ -243,6 +220,31 @@ export default function Page({
       </Head>
       <RootLayout>
         <main className="flex min-h-screen flex-col items-center justify-flex-start p-8 pt-8">
+          {profile?.image && (
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                backgroundImage: `url(${profile?.image})`,
+                filter: 'contrast(150%) blur(40px) opacity(0.4)',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat',
+                justifyContent: 'center',
+                position: 'absolute',
+                zIndex: -1,
+                top: 0,
+                left: 0,
+                right: 0,
+                width: '100%',
+                height: '25vh',
+                borderBottomLeftRadius: '50%',
+                borderBottomRightRadius: '50%',
+                transform: 'scale(2)',
+              }}
+            ></div>
+          )}
+
           <div className="z-10 w-full max-w-5xl items-center justify-between md:justify-end font-mono text-sm lg:flex md:pb-8">
             {/* <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
           BeginID: @{username}
@@ -254,7 +256,7 @@ export default function Page({
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                By{" "}
+                By{' '}
                 <Image
                   src="images/logo.svg"
                   alt="Begin Logo"
@@ -268,28 +270,32 @@ export default function Page({
           </div>
 
           <div className="w-full lg:max-w-5xl">
-            <div className="flex w-full rounded-lg bg-[#3414FC] relative h-28">
-              <div className="avatar-bg rounded-full p-1 absolute -bottom-[50px] left-3 ">
+            <div className="flex rounded-lg relative items-center justify-center">
+              <div className="avatar-bg rounded-full p-0.5 shadow-md">
                 {profile?.image ? (
-                  <a role="button" 
-                    onClick={() => setSelectedNft({
-                      displayName: `${profile?.name}.bgin.id`,
-                      image: profile?.image,
-                      fingerprint: profile?.address,
-                      policy: profile?.address,
-                      description: profile?.text?.description
-                    })}>
+                  <a
+                    role="button"
+                    onClick={() =>
+                      setSelectedNft({
+                        displayName: `${profile?.name}.bgin.id`,
+                        image: profile?.image,
+                        fingerprint: profile?.address,
+                        policy: profile?.address,
+                        description: profile?.text?.description,
+                      })
+                    }
+                  >
                     <div className="w-[96px] h-[96px] relative">
-                    <Image
-                      src={profile?.image}
-                      alt={`BeginID: ${profile?.name}`}
-                      className="rounded-full"
-                      // width={96}
-                      // height={96}
-                      priority
-                      fill
-                      style={{objectFit: "cover"}}  
-                    />
+                      <Image
+                        src={profile?.image}
+                        alt={`Begin ID: ${profile?.name}`}
+                        className="rounded-full"
+                        // width={96}
+                        // height={96}
+                        priority
+                        fill
+                        style={{ objectFit: 'cover' }}
+                      />
                     </div>
                   </a>
                 ) : (
@@ -322,33 +328,30 @@ export default function Page({
                 </svg>
               </div>
             ) : (
-              <div className="flex gap-4 flex-col md:flex-row">
-                <div className="flex-1">
-                  <div className="mt-12 p-4">
-                    <h3 className="text-xl font-bold">
-                      {profile?.name}.bgin.id
-                    </h3>
-                    <p className="text-sm text-gray-500">
-                      {formatShortAddress(profile?.address || "")}
-                    </p>
+              <div className="flex gap-4 flex-col items-center justify-center w-full">
+                <div className="mt-4 flex flex-col items-center justify-center">
+                  <h3 className="text-xl font-bold">@{profile?.name}</h3>
+                  <p className="text-sm text-gray-500">{profile?.name}.bgin.id</p>
+                </div>
+                <div className="flex-1 items-center justify-center">
+                  <div className="mt-1 p-4 items-center justify-center">
                     {profile?.text?.description && (
-                      <div className="pt-8 text-wrap">
+                      <div className="text-wrap">
                         <p className="text-sm text-gray-500">Bio</p>
                         <p className="break-word whitespace-pre-line">{profile?.text?.description}</p>
                       </div>
                     )}
-                    <div className="flex flex-row md:flex-col justify-between">
-                      {profile?.text["com.twitter"] && (
+                    <div className="flex flex-col justify-between">
+                      {profile?.text['com.twitter'] && (
                         <div className="pt-8">
                           <p className="text-sm text-gray-500">Twitter</p>
                           <p>
                             <a
                               className="flex items-center"
-                              href={`https://x.com/${profile?.text["com.twitter"]}`}
+                              href={`https://x.com/${profile?.text['com.twitter']}`}
                               target="_blank"
                             >
-                              <FaXTwitter style={{ paddingRight: "4px" }} /> @
-                              {profile?.text["com.twitter"]}
+                              <FaXTwitter style={{ paddingRight: '4px' }} /> @{profile?.text['com.twitter']}
                             </a>
                           </p>
                         </div>
@@ -356,7 +359,7 @@ export default function Page({
                       <div className="pt-8">
                         <p className="text-sm text-gray-500">Addresses</p>
                         <p className="flex items-center">
-                          {formatShortAddress(profile?.address || "")}{" "}
+                          {formatShortAddress(profile?.address || '')}{' '}
                           <a
                             className="pl-2"
                             role="button"
@@ -367,22 +370,12 @@ export default function Page({
                           >
                             <IoCopyOutline />
                           </a>
-                          {showCopyAlert && (
-                            <span className="text-sm">
-                              Copied to Clipboard!
-                            </span>
-                          )}
+                          {showCopyAlert && <span className="text-sm">Copied to Clipboard!</span>}
                         </p>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div className="flex-1 pt-8">
-                  <div className="pb-4">
-                    {nfts && nfts.length > 0 && (
-                      <h3 className="text-xl font-bold">NFTs</h3>
-                    )}
-                  </div>
+                  <div className="mt-6 pb-4">{nfts && nfts.length > 0 && <h3 className="text-xl font-bold">Collectibles (NFTs)</h3>}</div>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pb-20">
                     {nfts?.map((nft: any, i: number) => {
                       const nth = 4;
@@ -392,7 +385,7 @@ export default function Page({
                       //   closeTag = true
                       // }
 
-                      let src = nft.image
+                      let src = nft.image;
 
                       return (
                         <div key={nft.fingerprint}>
@@ -409,10 +402,7 @@ export default function Page({
                             // }
                             className="transition duration-150 ease-out hover:z-10 hover:ease-in hover:scale-125 h-auto aspect-square rounded-lg after:content group relative mb-5 block w-full after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:shadow-highlight"
                           >
-                            <NftImage
-                              alt={nft.displayName}
-                              imageUrl={nft.image}
-                            />
+                            <NftImage alt={nft.displayName} imageUrl={nft.image} />
                             {/* <p>{nft.displayName}</p>
                           <p>{nft.description}</p>
                           <p>{nft.fingerprint}</p> */}
@@ -421,7 +411,7 @@ export default function Page({
                       );
                     })}
                     {nfts && loadMore && (
-                      <div key={"load-more"}>
+                      <div key={'load-more'}>
                         <a
                           aria-disabled={isLoadingNfts}
                           role="button"
@@ -458,7 +448,7 @@ export default function Page({
                               />
                             </svg>
                           )}
-                          {!isLoadingNfts && "Load More"}
+                          {!isLoadingNfts && 'Load More'}
                         </a>
                       </div>
                     )}
@@ -511,9 +501,7 @@ export default function Page({
                       className="object-cover h-auto w-full rounded-lg"
                       src={selectedNft.image}
                     />
-                    <p className="text-lg leading-relaxed">
-                      {selectedNft.displayName}
-                    </p>
+                    <p className="text-lg leading-relaxed">{selectedNft.displayName}</p>
                     <p className="text-sm leading-relaxed text-gray-500">
                       <a
                         href={`https://pool.pm/${selectedNft.fingerprint}`}
@@ -536,9 +524,7 @@ export default function Page({
           )}
 
           <div className="w-full footer">
-            <p className="text-center text-sm text-gray-500">
-              BeginID - Universal Wallet Address
-            </p>
+            <p className="text-center text-sm text-gray-500">Begin ID - Universal Wallet Address</p>
           </div>
 
           {/* <div className="relative z-[-1] flex place-items-center before:absolute before:h-[300px] before:w-full before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 sm:before:w-[480px] sm:after:w-[240px] before:lg:h-[360px]">
