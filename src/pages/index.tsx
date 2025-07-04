@@ -132,11 +132,11 @@ export default function Page({
   }, []);
 
   const handleAlert = () => {
-    setIsLoading(true);
+    setHasCopied(true);
 
     setTimeout(() => {
-      setIsLoading(false);
-    }, 300);
+      setHasCopied(false);
+    }, 1000);
   };
 
   // const [username, setUsername] = useState<any>();
@@ -520,8 +520,8 @@ export default function Page({
                           >
                             <IoCopyOutline />
                           </a>
-                          {showCopyAlert && <span className="text-sm">Copied to Clipboard!</span>}
                         </p>
+                        {hasCopied && <p className="pt-1 text-sm text-cyan-light dark:text-cyan-dark">Copied to Clipboard!</p>}
                       </div>
                     </div>
                   </div>
