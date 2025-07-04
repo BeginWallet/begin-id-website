@@ -361,28 +361,38 @@ export default function Page({
       <RootLayout>
         <main className="flex flex-col items-center min-h-screen p-8 pt-8">
           {profile?.image && (
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                backgroundImage: `url(${profile?.image})`,
-                filter: 'contrast(150%) blur(40px) opacity(0.4)',
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                backgroundRepeat: 'no-repeat',
-                justifyContent: 'center',
-                position: 'absolute',
-                zIndex: -1,
-                top: 0,
-                left: 0,
-                right: 0,
-                width: '100%',
-                height: '25vh',
-                borderBottomLeftRadius: '50%',
-                borderBottomRightRadius: '50%',
-                transform: 'scale(2)',
-              }}
-            ></div>
+            <div style={{
+              position: 'absolute',
+              width: '100%',
+              overflow: 'hidden',
+              minWidth: '100%',
+              height: '50vh',
+              zIndex: -1,
+              top: 0
+            }}>
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  backgroundImage: `url(${profile?.image})`,
+                  filter: 'contrast(150%) blur(40px) opacity(0.4)',
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  backgroundRepeat: 'no-repeat',
+                  justifyContent: 'center',
+                  position: 'absolute',
+                  zIndex: -1,
+                  top: 0,
+                  left: 0,
+                  right: 'auto',
+                  width: '100%',
+                  height: '25vh',
+                  borderBottomLeftRadius: '50%',
+                  borderBottomRightRadius: '50%',
+                  transform: 'scale(2)',
+                }}
+              ></div>
+            </div>
           )}
 
           <div className="z-10 w-full max-w-5xl items-center justify-between md:justify-end font-mono text-sm flex md:pb-8">
